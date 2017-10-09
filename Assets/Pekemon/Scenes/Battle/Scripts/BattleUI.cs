@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Pekemon
+namespace Pekemon.Battle
 {
     public class BattleUI : MonoBehaviour
     {

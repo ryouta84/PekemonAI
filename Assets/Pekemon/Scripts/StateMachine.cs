@@ -29,6 +29,7 @@ namespace Pekemon
         }
 
         // シーン遷移後に呼ばれる
+        // LoadSceneするとロードしたシーンの状態に自動で遷移する。
         public void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
         {
             currentState.OnExit();
@@ -42,38 +43,6 @@ namespace Pekemon
         }
     }
 
-    class TitleState : IState
-    {
-        private static TitleState singleton = new TitleState();
-        private TitleState(){}
-
-        public static TitleState GetInstance()
-        {
-            return singleton;
-        }
-        public void OnEnter()
-        {
-            Debug.Log("TITLE START!");
-        }
-
-        public void OnExit()
-        {
-            Debug.Log("EXIT TITLE");
-        }
-
-        public void Render()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update()
-        {
-            if(Input.anyKeyDown)
-            {
-                SceneManager.LoadScene("Scenes/Battle");
-            }
-        }
-    }
     class EmptyState : IState
     {
         public void OnEnter()
@@ -83,7 +52,7 @@ namespace Pekemon
 
         public void OnExit()
         {
-            
+
         }
 
         public void Render()
@@ -96,5 +65,4 @@ namespace Pekemon
             throw new System.NotImplementedException();
         }
     }
-
 }

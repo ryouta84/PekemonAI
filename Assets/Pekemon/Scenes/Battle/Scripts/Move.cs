@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pekemon
+namespace Pekemon.Battle
 {
     public interface IMove
     {

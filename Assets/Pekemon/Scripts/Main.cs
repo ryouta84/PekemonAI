@@ -2,26 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Pekemon.Title;
+using Pekemon.Battle;
 
 namespace Pekemon
 {
     public class Main : MonoBehaviour
     {
-        StateMachine _stateMachine;
+        StateMachine stateMachine;
         static Main _instance = null;
         public static Main Instance
         {
             get
             {
                 return _instance ?? (_instance = FindObjectOfType<Main>());
-            }
-        }
-
-        public StateMachine stateMachine
-        {
-            get
-            {
-                return _stateMachine;
             }
         }
         void Awake()
@@ -35,7 +29,7 @@ namespace Pekemon
             DontDestroyOnLoad(gameObject);
 
             // ステートマシーンの初期化
-            _stateMachine = new StateMachine();
+            stateMachine = new StateMachine();
             stateMachine.Add("Title", TitleState.GetInstance());
             stateMachine.Add("Battle", BattleState.GetInstance());
             SceneManager.sceneLoaded += stateMachine.OnSceneLoaded;
@@ -51,12 +45,12 @@ namespace Pekemon
         // Use this for initialization
         void Start()
         {
-            //stateMachine.Change("Title");
         }
 
         // Update is called once per frame
         void Update()
         {
+            // Main Loop
             stateMachine.Update();
         }
     }
