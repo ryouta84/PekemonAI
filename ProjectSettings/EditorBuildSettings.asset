@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Title.unity
+    path: Assets/Pekemon/Scenes/Title/Title.unity
     guid: a2ef3d905ba07454cb1ffbbc837571b4
   - enabled: 1
-    path: Assets/Scenes/Battle.unity
+    path: Assets/Pekemon/Scenes/Battle/Battle.unity
     guid: 104d0f1e32c454f5a884f62f239d5da9

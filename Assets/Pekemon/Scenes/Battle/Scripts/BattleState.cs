@@ -22,12 +22,15 @@ namespace Pekemon.Battle
             GameObject poke = Resources.Load("Prefab/Pekemon") as GameObject;
             var pekemon = Object.Instantiate(poke);
             pekemon.name = "FightingPekemon";
-            //Object pokPref = Resources.Load("Prefab/Pekemon");
-            //var myPekemon = pokPref.Instantiate("Pikachu", 150);
-            //var myPekemon = (GameObject)Instantiate(Resources.Load("Prefab/Pekemon"));
+            IMove[] moves = 
+            {
+                QuickAttack.Instance,
+                Thunderbolt.Instance,
+            };
+            GameObject.Find("FightingPekemon").GetComponent<Pekemon>().Init(moves);
+
 			var hpGauge = (GameObject)Object.Instantiate(Resources.Load("Prefab/HpGauge"));
 			hpGauge.transform.SetParent(GameObject.Find("BattleUI").transform, false);
-            //ExtensionInstantiate.Instantiate(Resources.Load("Prefab/Pekemon") as Pekemon, "Pikachu");
         }
 
         public void OnExit()
@@ -40,18 +43,10 @@ namespace Pekemon.Battle
             throw new System.NotImplementedException();
         }
         public void Update()
-        {
-            //p1.DoMove(atk, p1);
-			// if(Input.anyKeyDown)
-			// {
-			// 	Main.stateMachine.Change("Title");
-			// 	SceneManager.LoadScene("Title");
-			// }
-			
+        {	
 			if(Input.GetKeyDown("a"))
 			{
-				Debug.Log("ATTACK!!!");
-				GameObject.Find("FightingPekemon").GetComponent<Pekemon>().HP -= 10;
+				//GameObject.Find("FightingPekemon").GetComponent<Pekemon>().DoMove(1, GameObject.Find("FightingPekemon").GetComponent<Pekemon>());
 			}
         }
     }

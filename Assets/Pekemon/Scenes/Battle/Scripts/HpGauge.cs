@@ -5,24 +5,23 @@ using UnityEngine.UI;
 
 namespace Pekemon.Battle
 {
-    public class BattleUI : MonoBehaviour
+    public class HpGauge : MonoBehaviour
     {
 
         Image gaugeImage;
         Text hpText;
         GameObject myPekemon = null;
-        short maxHP = 0;
+        int maxHP = 0;
         // Use this for initialization
         void Awake()
         {
-            
+            gaugeImage = GetComponent<Image>();
+            hpText = gaugeImage.transform.Find("Text").GetComponent<Text>();
         }
         void Start()
         {
             myPekemon = GameObject.Find("FightingPekemon");
-            gaugeImage = GetComponent<Image>();
-            hpText = gaugeImage.transform.Find("Text").GetComponent<Text>();
-            maxHP = 150;
+            maxHP = myPekemon.GetComponent<Pekemon>().HP;
         }
 
         // Update is called once per frame

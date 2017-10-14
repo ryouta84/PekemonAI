@@ -11,7 +11,18 @@ namespace Pekemon.Battle
         public PekemonType type2;
 
         // 覚えているわざのリスト
-        public IMove[] movesList = new IMove[4];
+        private IList<IMove> _moveList;
+        public IList<IMove> MoveList
+        {
+            get
+            {
+                return _moveList;
+            }
+            set
+            {
+                _moveList = value;
+            }
+        }
         // ステータス
         public BaseStats baseStats;
         public Stats stats;
@@ -56,19 +67,21 @@ namespace Pekemon.Battle
             Debug.Log("ペケモンを繰り出した！");
         }
 
-        public void DoMove(IMove move, Pekemon target)
+        public void Init(IMove[] moves)
         {
-            if (Hits(move.Accuracy))
+            MoveList = new List<IMove>();
+            foreach (var move in moves)
             {
-                // わざの命中判定は必ず実行するのでわざの効果だけを委譲する。
-                move.DoMove(this, target);
+                MoveList.Add(move);
             }
         }
-        private bool Hits(int accuracy)
+        public void DoMove(int moveNum, Pekemon target)
         {
-            bool isHit = true;
-
-            return isHit;
+            IMove move = MoveList[moveNum];
+            if (move.Hits())
+            {
+                MoveList[moveNum].Execute(this, target);
+            }
         }
     }
 
