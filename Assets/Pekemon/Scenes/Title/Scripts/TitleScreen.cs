@@ -23,4 +23,9 @@ namespace Pokemon.Title
             blinkText.color = textMessageColor;
         }
     }
+
+    class MyClass
+    {
+
+    }
 }

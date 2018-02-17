@@ -7,74 +7,86 @@ namespace Pekemon.Battle
     public class Pekemon : MonoBehaviour
     {
         public string pekemonName;
-        public PekemonType type1;
-        public PekemonType type2;
+
+        // テスト
+        [SerializeField]
+        PikachuStats baseStats = null;
 
         // 覚えているわざのリスト
-        private IList<IMove> _moveList;
         public IList<IMove> MoveList
         {
-            get
-            {
-                return _moveList;
-            }
-            set
-            {
-                _moveList = value;
-            }
+            get; private set;
         }
-        // ステータス
-        public BaseStats baseStats;
+
+        // テスト
         public Stats stats;
-        int level;
-        int _HP = 150;
-        public int HP
+        public int level;
+
+        int _currentHp = 0;
+        public int CurrentHp
         {
             get
             {
-                return (_HP >= 1) ? _HP : (int)0;
+                return _currentHp;
             }
-            set
+            private set
             {
-                if (value >= 0)
-                {
-                    _HP = value;
-                }
-                else
-                {
-                    _HP = 0;
-                }
+                // 現在HPが負数にならないように
+                _currentHp = value >= 0 ? value : 0;
             }
         }
 
-        // 状態異常
-        bool isBurn;
-        bool isFreeze;
-        bool isParalysis;
-        bool isPoison;
-        bool isBadPoison;
-        bool isSleep;
-        bool IsFainting
+        /// <summary>
+        /// ダメージを受ける。
+        /// </summary>
+        /// <returns>瀕死状態</returns>
+        /// <param name="damageValue">与えるダメージ量</param>
+        public bool Damaged(int damageValue)
+        {
+            CurrentHp -= damageValue;
+            return IsFainting;
+        }
+
+        // true：瀕死状態
+        public bool IsFainting
         {
             get
             {
-                return (HP == 0) ? true : false;
+                return CurrentHp <= 0 ? true : false;
             }
         }
 
         void Awake()
         {
-            Debug.Log("ペケモンを繰り出した！");
-        }
+            this.stats = new Stats();
+            stats.level = this.level;
 
-        public void Init(IMove[] moves)
-        {
-            MoveList = new List<IMove>();
-            foreach (var move in moves)
+            // マスタデータ種族値を設定
+            if (this.baseStats != null)
             {
-                MoveList.Add(move);
+                this.stats.baseStats = this.baseStats.BaseStats;
+                this.CurrentHp = this.stats.MAXHP;
+            }
+            else
+            {
+                Debug.Log("種族値マスタデータが設定されていない");
             }
         }
+
+        void Start()
+        {
+            Debug.Log(this.gameObject.name + gameObject.GetComponent<Pekemon>().pekemonName + "を繰り出した！");
+        }
+
+        /// <summary>
+        /// 変化するステータス(レベル、技など)を設定する。
+        /// </summary>
+        /// <param name="moves">技のリスト</param>
+        public void Init(IList<IMove> moves)
+        {
+            MoveList = moves;
+        }
+
         public void DoMove(int moveNum, Pekemon target)
         {
             IMove move = MoveList[moveNum];
@@ -105,11 +117,14 @@ namespace Pekemon.Battle
         public readonly int baseSpeed;
     }
 
+    /// <summary>
+    /// 最終的にプレイヤーが見れるステータス
+    /// </summary>
     public class Stats
     {
-        BaseStats baseStats;
-        int level;
-        public int HP
+        public BaseStats baseStats;
+        public int level;
+        public int MAXHP
         {
             get
             {

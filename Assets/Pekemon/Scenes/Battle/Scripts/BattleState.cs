@@ -2,35 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using ExtensionMethods;
 
 namespace Pekemon.Battle
 {
     public class BattleState : IState
     {
+        BattleInput playerInput;
+        BattleInput aIInput;
+        Pekemon myPekemon;
+        Pekemon oppnentPekemon;
+
         private static BattleState singleton = new BattleState();
-
         private BattleState() { }
-
         public static BattleState GetInstance()
         {
             return singleton;
         }
+
         public void OnEnter()
         {
             Debug.Log("BATTLE START!");
-            GameObject poke = Resources.Load("Prefab/Pekemon") as GameObject;
-            var pekemon = Object.Instantiate(poke);
-            pekemon.name = "FightingPekemon";
-            IMove[] moves = 
-            {
-                QuickAttack.Instance,
-                Thunderbolt.Instance,
-            };
-            GameObject.Find("FightingPekemon").GetComponent<Pekemon>().Init(moves);
 
-			var hpGauge = (GameObject)Object.Instantiate(Resources.Load("Prefab/HpGauge"));
-			hpGauge.transform.SetParent(GameObject.Find("BattleUI").transform, false);
+            // ペケモンの生成、設定
+            CreatePekemon();
+
+            // UI成生
+            CreateUI();
+
+            // 入力設定
+            playerInput = GameObject.Find(BattleConstants.BATTLING_PLAYERS_PEKEMON_NAME).GetComponent<BattleInput>();
+            aIInput = GameObject.Find(BattleConstants.BATTLING_ENEMYS_PEKEMON_NAME).GetComponent<BattleInput>();
         }
 
         public void OnExit()
@@ -42,30 +43,65 @@ namespace Pekemon.Battle
         {
             throw new System.NotImplementedException();
         }
+
         public void Update()
-        {	
-			if(Input.GetKeyDown("a"))
-			{
-				//GameObject.Find("FightingPekemon").GetComponent<Pekemon>().DoMove(1, GameObject.Find("FightingPekemon").GetComponent<Pekemon>());
-			}
-        }
-    }
-}
-
-namespace ExtensionMethods
-{
-    using Pekemon.Battle;
-    public static class ExtensionInstantiate
-    {
-        public static Pekemon Instantiate(this Object pekemonPref, string name, short maxHP)
         {
-            var pekemon = (Object.Instantiate(pekemonPref) as GameObject).GetComponent<Pekemon>();
-            pekemon.pekemonName = name;
-            pekemon.name = "MyPekemon";
-            pekemon.HP = maxHP;
+            // 入力待ち
+            InputData inputData = this.playerInput.GetInput();
+            if (!inputData.IsInputed)
+            {
+                return;
+            }
 
-            return pekemon;
+            // AIの入力待ち
+            InputData aIInputData = this.aIInput.GetInput();
+            if (!aIInputData.IsInputed)
+            {
+                return;
+            }
+
+            // コマンド実行
+            myPekemon.DoMove(inputData.selectedMoveId, oppnentPekemon);
+
+            // 敵は選択した技を実行（テスト）
+            oppnentPekemon.DoMove(aIInputData.selectedMoveId, myPekemon);
+
+            // 入力状態を初期化
+            this.playerInput.Init();
+            this.aIInput.Init();
+        }
+
+        private void CreatePekemon()
+        {
+            GameObject poke1 = Resources.Load("Prefab/Pekemon") as GameObject;
+            GameObject tempMyPekemon = Object.Instantiate(poke1);
+            tempMyPekemon.name = BattleConstants.BATTLING_PLAYERS_PEKEMON_NAME;
+            myPekemon = tempMyPekemon.GetComponent<Pekemon>();
+            GameObject poke2 = Resources.Load("Prefab/Pekemon2") as GameObject;
+            GameObject tempOppnentPekemon = Object.Instantiate(poke2);
+            tempOppnentPekemon.name = BattleConstants.BATTLING_ENEMYS_PEKEMON_NAME;
+            oppnentPekemon = tempOppnentPekemon.GetComponent<Pekemon>();
+            IList<IMove> moves = new List<IMove>
+            {
+                QuickAttack.Instance,
+                Thunderbolt.Instance,
+                TestMove.Instance,
+            };
+            GameObject.Find(BattleConstants.BATTLING_PLAYERS_PEKEMON_NAME).GetComponent<Pekemon>().Init(moves);
+            GameObject.Find(BattleConstants.BATTLING_ENEMYS_PEKEMON_NAME).GetComponent<Pekemon>().Init(moves);
+        }
+
+        private void CreateUI()
+        {
+            // プレイヤーUI
+            GameObject hpGauge = GameObject.Find("PlayerPekemonHpGauge");
+            hpGauge.GetComponent<HpGauge>().pekemon = this.myPekemon;
+
+            // 敵UI
+            GameObject oppnentHpGauge = GameObject.Find("EnemyPekemonHpGauge");
+            oppnentHpGauge.GetComponent<HpGauge>().pekemon = this.oppnentPekemon;
         }
     }
 }
+
 

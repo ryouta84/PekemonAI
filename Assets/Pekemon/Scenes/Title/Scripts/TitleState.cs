@@ -31,7 +31,7 @@ namespace Pekemon.Title
 
         public void Update()
         {
-            if (Input.anyKeyDown)
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 SceneManager.LoadScene("Pekemon/Scenes/Battle/Battle");
             }

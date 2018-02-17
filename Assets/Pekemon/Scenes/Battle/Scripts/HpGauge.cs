@@ -10,7 +10,7 @@ namespace Pekemon.Battle
 
         Image gaugeImage;
         Text hpText;
-        GameObject myPekemon = null;
+        public Pekemon pekemon = null;
         int maxHP = 0;
         // Use this for initialization
         void Awake()
@@ -20,15 +20,14 @@ namespace Pekemon.Battle
         }
         void Start()
         {
-            myPekemon = GameObject.Find("FightingPekemon");
-            maxHP = myPekemon.GetComponent<Pekemon>().HP;
+            maxHP = pekemon.CurrentHp;
         }
 
         // Update is called once per frame
         void Update()
         {
-            gaugeImage.fillAmount = (float)myPekemon.GetComponent<Pekemon>().HP / (float)maxHP;
-            hpText.text = myPekemon.GetComponent<Pekemon>().HP.ToString();
+            gaugeImage.fillAmount = (float)pekemon.CurrentHp / (float)maxHP;
+            hpText.text = pekemon.CurrentHp.ToString();
         }
     }
 }
