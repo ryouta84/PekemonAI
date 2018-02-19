@@ -8,14 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cf815c9bb0d84b2da287650f99cffd1, type: 3}
-  m_Name: PikachuStats
+  m_Script: {fileID: 11500000, guid: 99eee415fe9fd4bacabd10e0b3957368, type: 3}
+  m_Name: PicaStats
   m_EditorClassIdentifier: 
-  type1: 1
+  type1: 0
   type2: 0
-  baseHP: 150
-  baseAttack: 50
-  baseDefense: 55
-  baseSpAtk: 60
-  baseSpDef: 40
-  baseSpeed: 90
+  baseHP: 0
+  baseAttack: 0
+  baseDefense: 0
+  baseSpAtk: 0
+  baseSpDef: 0
+  baseSpeed: 0

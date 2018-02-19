@@ -10,7 +10,7 @@ namespace Pekemon.Battle
 
         // テスト
         [SerializeField]
-        PikachuStats baseStats = null;
+        PicaStats baseStats = null;
 
         // 覚えているわざのリスト
         public IList<IMove> MoveList

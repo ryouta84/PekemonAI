@@ -8,8 +8,8 @@ public class CreateMasterDataMenu : Editor {
     [MenuItem("MasterData/Stats")]
     static void Create()
     {
-        var instance = CreateInstance<Pekemon.Battle.PikachuStats>();
+        var instance = CreateInstance<Pekemon.Battle.PicaStats>();
 
-        AssetDatabase.CreateAsset(instance, "Assets/EditorTool/PikachuStats.asset");
+        AssetDatabase.CreateAsset(instance, "Assets/EditorTool/PicaStats.asset");
     }
 }

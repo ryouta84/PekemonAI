@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pekemon.Battle
 {
-    public class PikachuStats : ScriptableObject
+    public class PicaStats : ScriptableObject
     {
         [SerializeField]
         private PekemonType type1;
