@@ -8,7 +8,6 @@ namespace Pekemon.Battle
     {
         public string pekemonName;
 
-        // テスト
         [SerializeField]
         PicaStats baseStats = null;
 
@@ -18,7 +17,6 @@ namespace Pekemon.Battle
             get; private set;
         }
 
-        // テスト
         public Stats stats;
         public int level;
 
