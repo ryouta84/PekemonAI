@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pekemonName: "\u30D4\u30AB\u30C1\u30E5\u30A6"
-  baseStats: {fileID: 11400000, guid: 073c84a59aade4937a93b4e68235e218, type: 2}
+  baseStats: {fileID: 11400000, guid: 5f9a32dcbb44f4561aa2d3ba888d8b33, type: 2}
   level: 2
 --- !u!114 &114643269716218812
 MonoBehaviour:

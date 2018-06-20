@@ -61,10 +61,12 @@ namespace Pekemon.Battle
             }
 
             // コマンド実行
-            myPekemon.DoMove(inputData.selectedMoveId, oppnentPekemon);
+            //myPekemon.DoMove(inputData.selectedMoveId, oppnentPekemon);
 
             // 敵は選択した技を実行（テスト）
-            oppnentPekemon.DoMove(aIInputData.selectedMoveId, myPekemon);
+            //oppnentPekemon.DoMove(aIInputData.selectedMoveId, myPekemon);
+
+            Battle.Instance.TurnStart();
 
             // 入力状態を初期化
             this.playerInput.Init();

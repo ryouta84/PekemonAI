@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pekemonName: "\u30D4\u30AB\u30C1\u30E5\u30A6"
-  baseStats: {fileID: 11400000, guid: 0d3afb68601614e48af390cae28c3f49, type: 2}
+  baseStats: {fileID: 11400000, guid: 5f9a32dcbb44f4561aa2d3ba888d8b33, type: 2}
   level: 2
 --- !u!135 &135437595322874176
 SphereCollider:

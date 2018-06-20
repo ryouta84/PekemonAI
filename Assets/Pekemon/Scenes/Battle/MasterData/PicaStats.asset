@@ -13,9 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type1: 0
   type2: 0
-  baseHP: 0
-  baseAttack: 0
-  baseDefense: 0
-  baseSpAtk: 0
-  baseSpDef: 0
-  baseSpeed: 0
+  baseHP: 120
+  baseAttack: 41
+  baseDefense: 54
+  baseSpAtk: 43
+  baseSpDef: 50
+  baseSpeed: 90
